@@ -23,6 +23,12 @@ function App()
     {
         try
         {
+            // Передаем бюджет и дату полета на сервер
+            const response = await axios.post('http://localhost:3001/budget',
+                {
+                budget,
+                dateFly
+                });
             // Запросы на сервер для получения рейсов и отелей
             const flightResponse = await axios.get(`http://localhost:3001/flights?date=${dateFly}`);
             const hotelResponse = await axios.get(`http://localhost:3001/hotels?budget=${budget}`);
@@ -36,4 +42,23 @@ function App()
             console.error(error);
         }
     }
-};
+
+    return (
+        <Container>
+            <Box sx={{ m: 4 }}>
+                <Typography variant="h2" gutterBottom>
+                    Travel Booking
+                </Typography>
+                <budget budget={budget} onChange={handleBudgetChange} />
+                <dateFly value = {dateFly} onChange={handleDateFlychange} />
+                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                    Submit
+                </Button>
+                <FlightResults flights={FlightResults} />
+                <HotelResults hotels={hotelResults} />
+                </Box>
+            </Container>
+    );
+}
+
+export default App;
