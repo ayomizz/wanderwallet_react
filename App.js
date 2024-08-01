@@ -24,14 +24,14 @@ function App()
         try
         {
             // Передаем бюджет и дату полета на сервер
-            const response = await axios.post('http://localhost:3001/budget',
+            const response = await axios.post('http://127.0.0.1:5000/app/travel',
                 {
                 budget,
                 dateFly
                 });
             // Запросы на сервер для получения рейсов и отелей
-            const flightResponse = await axios.get(`http://localhost:3001/flights?date=${dateFly}`);
-            const hotelResponse = await axios.get(`http://localhost:3001/hotels?budget=${budget}`);
+            const flightResponse = await axios.get(`http://127.0.0.1:5000/flights?date=${dateFly}`);
+            const hotelResponse = await axios.get(`http://127.0.0.1:5000/hotels?budget=${budget}`);
 
             // Обработка полученных результатов
             setFlights(flightResponse.data);
