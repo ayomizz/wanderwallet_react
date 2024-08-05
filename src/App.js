@@ -7,6 +7,8 @@ import FlightResults from './components/FlightResults';
 import HotelResults from './components/HotelResults';
 import {Container, Box, Typography, Button} from '@mui/material';
 
+const url='http://localhost:3000'; // Адрес сервера
+
 function App()
 {
     const [budget, setBudget] = useState(0);
@@ -24,14 +26,14 @@ function App()
         try
         {
             // Передаем бюджет и дату полета на сервер
-            const response = await axios.post('http://127.0.0.1:5000/app/travel',
+            const response = await axios.post(url,
                 {
                 budget,
                 dateFly
                 });
             // Запросы на сервер для получения рейсов и отелей
-            const flightResponse = await axios.get(`http://127.0.0.1:5000/flights?date=${dateFly}`);
-            const hotelResponse = await axios.get(`http://127.0.0.1:5000/hotels?budget=${budget}`);
+            const flightResponse = await axios.get(`http://localhost:3000/flights?date=${dateFly}`);
+            const hotelResponse = await axios.get(`http://localhost:3000/hotels?budget=${budget}`);
 
             // Обработка полученных результатов
             setFlights(flightResponse.data);
